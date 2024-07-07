@@ -50,6 +50,9 @@ const Config = {
 
   API_VERSIONS: ['v1'],
   EXPRESS_PORT: process.env.PORT || 3000,
+
+  ScriptRestartServerPath: 'C:\\Users\\Serv-1\\Desktop\\Restart_service.bat',
+  ScriptUpdateAndRestartServerPath: 'C:\\Users\\Serv-1\\Desktop\\Update_ restart.bat'
 };
 
 module.exports = Config;
