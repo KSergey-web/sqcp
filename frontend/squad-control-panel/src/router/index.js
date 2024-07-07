@@ -12,6 +12,7 @@ import ActionLogsPage from '../views/ActionLogsPage.vue';
 import SquadsPage from '../views/SquadsPage.vue';
 import ConsolePage from '../views/ConsolePage.vue';
 import PanelAdminsPage from '../views/PanelAdminsPage.vue';
+import ServerManagement from "@/views/ServerManagement.vue";
 
 Vue.use(VueRouter);
 
@@ -133,6 +134,18 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+
+  {
+    path: '/server-management',
+    name: 'Server Management',
+    component: ServerManagement,
+    meta: {
+      menu: {
+        // icon: 'mdi-account-multiple',
+      },
+      authMiddelware: true,
+    },
   },
 
   // 404

@@ -7,6 +7,7 @@ import Bans from '@/store/modules/Bans.js';
 import Logs from '@/store/modules/Logs';
 import Users from '@/store/modules/Users';
 import Statistics from '@/store/modules/Statistics';
+import ServerManagementStatistics from '@/store/modules/ServerManagementStatistics';
 
 Vue.use(Vuex);
 
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     logs: Logs,
     users: Users,
     statistics: Statistics,
+    serverManagementStatistics: ServerManagementStatistics,
   },
 
   getters: {
