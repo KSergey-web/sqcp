@@ -110,7 +110,7 @@ export default {
     async doUpdateServer() {
       try {
         await Vue.axios.post(
-          `${Vue.config.baseURL}/server/update-and-restart`,
+          `${Vue.config.baseURL}/server-management/update-and-restart`,
           {},
           {
             headers: {
@@ -131,7 +131,7 @@ export default {
     async doRestartServer() {
       try {
         await Vue.axios.post(
-          `${Vue.config.baseURL}/server/restart`,
+          `${Vue.config.baseURL}/server-management/restart`,
           {},
           {
             headers: {

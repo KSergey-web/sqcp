@@ -16,7 +16,7 @@ export default {
   actions: {
     async fetch({ commit, rootState }) {
       try {
-        const response = await Vue.axios.get(`${Vue.config.baseURL}/server-management-statistics`, {
+        const response = await Vue.axios.get(`${Vue.config.baseURL}/server-management/statistics`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${rootState.session.session.token}`,
