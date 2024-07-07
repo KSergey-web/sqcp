@@ -42,17 +42,7 @@ export default {
     try {
       await this.$store.dispatch('serverManagementStatistics/fetch');
       const res = this.$store.getters['serverManagementStatistics/getStatistics'];
-      this.statistics = {};
-      if (res.lastRestartServiceDate) {
-        this.statistics.lastRestartServiceDate = this.getDateWithTime(res);
-      } else {
-        this.statistics.lastRestartServiceDate = 'Команда не запускалась';
-      }
-      if (res.lastUpdateServiceDate) {
-        this.statistics.lastUpdateServiceDate = this.getDateWithTime(res);
-      } else {
-        this.statistics.lastUpdateServiceDate = 'Команда не запускалась';
-      }
+      this.updateState(res);
     } catch (error) {
       this.$swal({
         icon: 'error',
@@ -109,7 +99,7 @@ export default {
 
     async doUpdateServer() {
       try {
-        await Vue.axios.post(
+        const result = await Vue.axios.post(
           `${Vue.config.baseURL}/server-management/update-and-restart`,
           {},
           {
@@ -123,14 +113,29 @@ export default {
           icon: 'success',
           title: `Succesfully run update and restart`,
         });
+        this.updateState(result.data.statistics);
       } catch (error) {
         this.handleError(error);
       }
     },
 
+    updateState(statistics) {
+      this.statistics = {};
+      if (statistics.lastRestartServiceDate) {
+        this.statistics.lastRestartServiceDate = this.getDateWithTime(statistics);
+      } else {
+        this.statistics.lastRestartServiceDate = 'Команда не запускалась';
+      }
+      if (statistics.lastUpdateServiceDate) {
+        this.statistics.lastUpdateServiceDate = this.getDateWithTime(statistics);
+      } else {
+        this.statistics.lastUpdateServiceDate = 'Команда не запускалась';
+      }
+    },
+
     async doRestartServer() {
       try {
-        await Vue.axios.post(
+        const result = await Vue.axios.post(
           `${Vue.config.baseURL}/server-management/restart`,
           {},
           {
@@ -144,6 +149,7 @@ export default {
           icon: 'success',
           title: `Succesfully run restart`,
         });
+        this.updateState(result.data.statistics);
       } catch (error) {
         this.handleError(error);
       }
@@ -151,9 +157,7 @@ export default {
 
     async restartService() {
       if (await this.confirmAction('Перезапуск службы сервера squad (только службы)')) {
-        if (await this.doRestartServer()) {
-          this.statistics.lastRestartServiceDate = this.getDateWithTime(new Date());
-        }
+        await this.doRestartServer();
       }
     },
 
@@ -163,9 +167,7 @@ export default {
           'Перезапуск службы с проверкой обновлений серверной части сквада, и перезапуском squadjs'
         )
       ) {
-        if (await this.doUpdateServer()) {
-          this.statistics.lastUpdateServiceDate = this.getDateWithTime(new Date());
-        }
+        await this.doUpdateServer();
       }
     },
 
