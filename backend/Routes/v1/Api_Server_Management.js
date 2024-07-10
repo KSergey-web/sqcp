@@ -64,7 +64,7 @@ module.exports = (expressInstance) => {
     AuthMiddleware.handle,
 
     async (req, res) => {
-      const bat = spawn('cmd.exe', ['/c', Config.ScriptRestartServerPath]);
+      const bat = spawn('cmd.exe', ['/c', Config.ScriptUpdateAndRestartServerPath]);
       try {
         await new Promise((resolve, reject) => {
           bat.stdout.on('data', (data) => {
