@@ -31,8 +31,8 @@ module.exports = (expressInstance) => {
     AuthMiddleware.handle,
 
     async (req, res) => {
-      const bat = spawn('cmd.exe', ['/c', Config.ScriptRestartServerPath]);
       try {
+        const bat = spawn('cmd.exe', ['/c', Config.ScriptRestartServerPath]);
         await new Promise((resolve, reject) => {
           bat.stdout.on('data', (data) => {
             lastRestartServiceDate = new Date().toJSON();
@@ -64,8 +64,8 @@ module.exports = (expressInstance) => {
     AuthMiddleware.handle,
 
     async (req, res) => {
-      const bat = spawn('cmd.exe', ['/c', Config.ScriptUpdateAndRestartServerPath]);
       try {
+        const bat = spawn('cmd.exe', ['/c', Config.ScriptUpdateAndRestartServerPath]);
         await new Promise((resolve, reject) => {
           bat.stdout.on('data', (data) => {
             lastUpdateServiceDate = new Date().toJSON();
