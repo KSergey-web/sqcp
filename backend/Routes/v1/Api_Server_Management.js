@@ -35,6 +35,7 @@ module.exports = (expressInstance) => {
       try {
         await new Promise((resolve, reject) => {
           bat.stdout.on('data', (data) => {
+            lastRestartServiceDate = new Date().toJSON();
             resolve();
           });
 
@@ -65,8 +66,9 @@ module.exports = (expressInstance) => {
     async (req, res) => {
       const bat = spawn('cmd.exe', ['/c', Config.ScriptRestartServerPath]);
       try {
-        const execRes = await new Promise((resolve, reject) => {
+        await new Promise((resolve, reject) => {
           bat.stdout.on('data', (data) => {
+            lastUpdateServiceDate = new Date().toJSON();
             resolve();
           });
 
@@ -82,7 +84,7 @@ module.exports = (expressInstance) => {
           },
         });
       } catch (err) {
-          console.error(err);
+        console.error(err);
         res.status(500).json({ error: err.message });
       }
     }
