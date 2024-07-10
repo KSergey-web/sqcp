@@ -122,12 +122,12 @@ export default {
     updateState(statistics) {
       this.statistics = {};
       if (statistics.lastRestartServiceDate) {
-        this.statistics.lastRestartServiceDate = this.getDateWithTime(statistics);
+        this.statistics.lastRestartServiceDate = this.getDateWithTime(new Date(statistics.lastRestartServiceDate));
       } else {
         this.statistics.lastRestartServiceDate = 'Команда не запускалась';
       }
       if (statistics.lastUpdateServiceDate) {
-        this.statistics.lastUpdateServiceDate = this.getDateWithTime(statistics);
+        this.statistics.lastUpdateServiceDate = this.getDateWithTime(new Date(statistics.lastUpdateServiceDate));
       } else {
         this.statistics.lastUpdateServiceDate = 'Команда не запускалась';
       }
